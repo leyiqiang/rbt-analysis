@@ -22,6 +22,11 @@ export default new Router({
       name: 'tools',
       component: () => import('@/components/tools')
     },
+    {
+      path: '/table',
+      name: 'table',
+      component: () => import('@/components/tables/table')
+    },
     // {
     //   path: '/state',
     //   name: 'state',

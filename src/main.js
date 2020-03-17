@@ -4,12 +4,14 @@
 import Vue from 'vue'
 import App from './App.vue' //默认, webpack无法打包.vue文件, 需要相关loader
 import router from './router'
+import store from './store' // 引入
 import vuetify from './plugins/vuetify'
 
 // Vue.use(Vuetify);
 const vm = new Vue({
   vuetify,
   router,
+  store,
   el: '#app',
   components: {App},
   template: '<App/>'

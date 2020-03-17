@@ -3,7 +3,7 @@
     <v-navigation-drawer app 
       v-model='drawer'>
       <v-list dense nav class="py-0">
-        <v-list-item two-line :class="miniVariant && 'px-0'">
+        <v-list-item two-line class="miniVariant && 'px-0'">
           <v-list-item-avatar>
             <img src="http://img4.imgtn.bdimg.com/it/u=178483043,3983341895&fm=26&gp=0.jpg">
           </v-list-item-avatar>
@@ -15,16 +15,50 @@
         </v-list-item>          
         <v-divider></v-divider>
         <v-list-item
-            v-for="item in items"
-            :key="item.title"
-            :to="item.to"
+            to="dashboard"
             link>
             <v-list-item-icon>
-              <v-icon>{{ item.icon }}</v-icon>
+              <v-icon>mdi-view-dashboard</v-icon>
             </v-list-item-icon>
 
             <v-list-item-content>
-              <v-list-item-title>{{ item.title }}</v-list-item-title>
+              <v-list-item-title>Dashboard</v-list-item-title>
+            </v-list-item-content>
+        </v-list-item>      
+        <v-list-group
+        prepend-icon="mdi-tools"
+        value="true"
+        >       
+        <template v-slot:activator>
+          <v-list-item-title>Tools</v-list-item-title>
+        </template>
+
+        <v-list-item link to="table">
+          <v-list-item-title>测试表格</v-list-item-title>
+        </v-list-item>
+        </v-list-group>
+
+        <v-list-item
+            to="User"
+            link>
+            <v-list-item-icon>
+              <v-icon>mdi-account</v-icon>
+            </v-list-item-icon>
+
+            <v-list-item-content>
+              <v-list-item-title>User</v-list-item-title>
+            </v-list-item-content>
+        </v-list-item>      
+
+        <v-list-item
+            to="about"
+            link>
+            <v-list-item-icon>
+              <v-icon>mdi-help-box</v-icon>
+            </v-list-item-icon>
+
+            <v-list-item-content>
+              <v-list-item-title>About</v-list-item-title>
             </v-list-item-content>
         </v-list-item>
       </v-list>
