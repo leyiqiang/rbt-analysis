@@ -29,10 +29,10 @@
                   v-on="on"
                 ></v-text-field>
               </template>
-              <v-date-picker v-model="date" no-title scrollable>
+              <v-date-picker v-model="date" no-title color="green" scrollable>
                 <v-spacer></v-spacer>
-                <v-btn text color="primary" @click="menu = false">Cancel</v-btn>
-                <v-btn text color="primary" @click="$refs.menu.save(date)">OK</v-btn>
+                <v-btn text color="green" @click="menu = false">Cancel</v-btn>
+                <v-btn text color="green" @click="$refs.menu.save(date)">OK</v-btn>
               </v-date-picker>
             </v-menu>
           </v-col>
