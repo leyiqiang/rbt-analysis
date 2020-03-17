@@ -4,7 +4,6 @@ const webpack = require('webpack')
 const htmlWebpackPlugin = require('html-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
-
 // 入口 entry 出口output
 module.exports = {
   entry: path.join(__dirname, './src/main.js'),//入口, 使用webpack要打包哪个文件
@@ -32,7 +31,30 @@ module.exports = {
     rules: [
       {
         test: /\.css$/,
-        use: [ 'vue-style-loader','style-loader', 'css-loader' ]
+        use: [ 'vue-style-loader','style-loader', 'css-loader']
+      },
+      {
+        test: /\.s(c|a)ss$/,
+        use: [
+          'vue-style-loader',
+          'css-loader',
+          {
+            loader: 'sass-loader',
+            // Requires sass-loader@^7.0.0
+            options: {
+              implementation: require('sass'),
+              fiber: require('fibers'),
+              indentedSyntax: true // optional
+            },
+            // Requires sass-loader@^8.0.0
+            options: {
+              implementation: require('sass'),
+              sassOptions: {
+                fiber: require('fibers'),
+                indentedSyntax: true // optional
+              },
+            },
+          },]
       },
       {      
         test: /\.m?js$/, //正则表达式
@@ -50,8 +72,10 @@ module.exports = {
     ] //第三方模块的匹配规则
   },
   resolve: {
+    extensions: ['.js', '.vue', '.json'],
     alias: { // 修改vue被导入时候的包的路径
-      "vue$": "vue/dist/vue.js"
+      "vue$": "vue/dist/vue.esm.js",
+      '@': path.join(__dirname, './src')
     }
   },
 

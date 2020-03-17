@@ -1,12 +1,13 @@
 {
   "scripts": {
-    "dev2": "webpack-dev-server --open --contentBase src --port 8081 --hot",
-    "dev": "webpack-dev-server"
+    "dev": "webpack-dev-server --open --contentBase src --port 8081 --hot"
   },
   "dependencies": {
     "path": "^0.12.7",
     "vant": "^2.5.2",
     "vue": "^2.6.11",
+    "vue-router": "^3.1.6",
+    "vuetify": "^2.2.17",
     "webpack": "^4.41.6"
   },
   "devDependencies": {
@@ -16,7 +17,12 @@
     "babel-loader": "^8.0.6",
     "babel-plugin-import": "^1.13.0",
     "css-loader": "^3.4.2",
+    "deepmerge": "^4.2.2",
+    "fibers": "^4.0.2",
     "html-webpack-plugin": "^3.2.0",
+    "node-sass": "^4.13.1",
+    "sass": "^1.26.3",
+    "sass-loader": "^8.0.2",
     "style-loader": "^1.1.3",
     "vue-loader": "^15.9.0",
     "vue-style-loader": "^4.1.2",
