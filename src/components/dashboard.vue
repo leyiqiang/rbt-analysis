@@ -8,9 +8,10 @@
   export default {
     data() {
       return {
-        msg: 'home page'
+        msg: 'dashboard page'
       }
     },
 
   }
 </script>
+

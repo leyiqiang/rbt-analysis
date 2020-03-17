@@ -9,18 +9,18 @@ export default new Router({
   routes: [
     {
       path: '/user',
-      name: 'User',
-      component: () => import('@/page/user')
+      name: 'user',
+      component: () => import('@/components/user')
     },
     {
-      path: '/analysis',
-      name: 'Analysis',
-      component: () => import('@/page/analysis')
+      path: '/dashboard',
+      name: 'dashboard',
+      component: () => import('@/components/dashboard')
     },
     {
-      path: '/rbt',
-      name: 'RBT',
-      component: () => import('@/page/rbt')
+      path: '/tools',
+      name: 'tools',
+      component: () => import('@/components/tools')
     },
     // {
     //   path: '/state',

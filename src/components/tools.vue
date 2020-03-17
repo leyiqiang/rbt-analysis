@@ -8,7 +8,7 @@
   export default {
     data() {
       return {
-        msg: 'analysis page'
+        msg: 'rbt tools page'
       }
     },
 
