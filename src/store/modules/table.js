@@ -1,7 +1,12 @@
+import { NA } from '@/utils/constants'
+
 const state = {
-    date: "",
-    STO: [],
-    data: {}, // stoName: [{success: false, promptLevel: PP, note: ""}, ...]
+    data: {}, // stoName: [{isSuccess: false, promptLevel: PP, note: ""}, ...]
+    currentData: {
+      isSuccess: false,
+      promptLevel:NA,
+      note: ""
+    },
 }
 
 const getters = {
@@ -16,6 +21,9 @@ const getters = {
     // remove_card(state, index) {
     //   state.selectedCards.splice(index, 1)
     // }
+    changeIsSuccess(state, data) {
+      state.isSuccess = data
+    }
   }
   
 export default {
