@@ -1,4 +1,4 @@
-import { NA } from '@/utils/constants'
+import NA  from '@/utils/constants'
 
 const state = {
     data: {}, // stoName: [{isSuccess: false, promptLevel: PP, note: ""}, ...]

@@ -1,46 +1,71 @@
 <template>
-    <v-menu offset-y>
-      <template v-slot:activator="{ on }">
-        <v-btn
-          color="primary"
-          dark
-          v-on="on"
-        >
-          STO
-        </v-btn>
-      </template>
-      <v-list>
-        <v-list-item
-          v-for="(item, index) in STOs"
-          :key="index"
-          @click=""
-        >
-          <v-list-item-title>{{ item }}</v-list-item-title>
-        </v-list-item>
-        <v-list-item>
-          <v-list-item-title>添加</v-list-item-title>
-        </v-list-item>
-      </v-list>
-    </v-menu>
+  <v-row>
+    <v-col align-self="center">
+      <v-select
+        required
+        :value="selectedSTO"
+        :items="STOs"
+        label="选择STO"
+        outlined
+      ></v-select>
+    </v-col>
+    <v-col align-self="center">
+      <v-text-field
+        :value="newSTO"
+        label="新建STO"
+        @change="changeNewSTO"
+        required>
+      </v-text-field>
+      <div class="my-2">
+        <v-btn @click="addSTOButtonAction" small color="primary">新建STO</v-btn>
+      </div>
+    </v-col>
+    <v-snackbar
+      :value="snackbar"
+    >
+      新STO不可为空
+      <v-btn
+        color="red"
+        text
+        @click="snackbar = false"
+      >
+        Close
+      </v-btn>
+    </v-snackbar>
+  </v-row>
 </template>
 
 <script>
   import { createNamespacedHelpers } from 'vuex'
+  import _ from 'lodash';
   const { mapState, mapMutations } = createNamespacedHelpers('sto');
   export default {
     data() {
       return {
+        snackbar: false
       }
     },
     methods: {
       ...mapMutations([
+        'addSTO',
+        'changeNewSTO',
+        'changeSelectedSTO'
       ]),
+      addSTOButtonAction() {
+        if(_.isNil(this.newSTO) || this.newSTO === "") {
+          this.snackbar = true
+          return
+        }
+        this.addSTO(this.newSTO)
+        this.changeSelectedSTO(this.newSTO)
+        this.changeNewSTO("")
+      }
     },
     computed: {
       ...mapState([
         'STOs',
         'selectedSTO',
-        'previousSTO'
+        'newSTO'
       ])
     }
   }

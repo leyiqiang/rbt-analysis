@@ -2,12 +2,16 @@
   <v-container>
     <table-header></table-header>
     <v-divider></v-divider>
-    <v-form valid>
+    <v-card
+      class="mx-auto"
+      outlined>
       <v-container>
-        <v-row justify="center">
+        <v-row dense justify="center">
           <v-col align-self="center">
             <s-t-o-menu></s-t-o-menu>
           </v-col>
+        </v-row>
+        <v-row>
           <v-col align-self="center">
             <v-switch v-model="currentData.isSuccess"
                       label="success"
@@ -15,10 +19,8 @@
                       value="success"
                       :label="getLabel"
                       @change="changeIsSuccess"></v-switch>
-          </v-col>
-          <v-col align-self="center">
             <v-btn-toggle
-              v-model="text"
+              value="na"
               color="deep-purple accent-3"
             >
               <v-btn value="na">
@@ -41,9 +43,7 @@
               </v-btn>
             </v-btn-toggle>
           </v-col>
-        </v-row>
-        <v-row>
-          <v-col align-self="center">
+          <v-col align-self="end">
             <v-text-field
               :value="currentData.note"
               label="备注"
@@ -51,8 +51,15 @@
             </v-text-field>
           </v-col>
         </v-row>
+        <v-row>
+          <v-col align="end">
+            <v-btn @click='addData' class="mx-2" fab dark color="indigo">
+              <v-icon dark>mdi-plus</v-icon>
+            </v-btn>
+          </v-col>
+        </v-row>
       </v-container>
-    </v-form>
+    </v-card>
     <!--<v-data-table-->
       <!--:headers="headers"-->
       <!--:items="desserts"-->
@@ -72,17 +79,26 @@
     },
     computed: {
       getLabel() {
-        return this.currentData.isSuccess? "+" : "-";
+        const sign =  this.currentData.isSuccess? "+" : "-";
+        return "是否完成: " + sign
       },
       ...mapState("table", [
         'data',
         'currentData']),
-
+      ...mapState("sto", [
+        'selectedSTO']),
+      ...mapState("tableHeader", [
+        'tableName',
+        'studentName',
+        'date']),
     },
     methods: {
       ...mapMutations("table", [
         'changeIsSuccess'
-      ])
+      ]),
+      addData(studentName, tableName, date, selectedSTO, currentData) {
+
+      }
     },
     components: {
       TableHeader,

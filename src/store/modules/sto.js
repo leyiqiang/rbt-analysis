@@ -3,7 +3,7 @@ import { NA } from '@/utils/constants'
 const state = {
   STOs: [],
   selectedSTO: "",
-  previousSTO: "",
+  newSTO: "",
 }
 
 const getters = {
@@ -24,8 +24,8 @@ const mutations = {
   changeSelectedSTO(state, sto) {
     state.selectedSTO = sto
   },
-  changePreviousSTO(state, sto) {
-    state.previousSTO = sto
+  changeNewSTO(state, sto) {
+    state.newSTO = sto
   }
 }
 
