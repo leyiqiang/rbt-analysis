@@ -47,26 +47,20 @@
 
 <script>
   import { createNamespacedHelpers } from 'vuex'
-  const { mapState, mapMutations } = createNamespacedHelpers('tableHeader');
+  const { mapMutations } = createNamespacedHelpers('tableHeader');
   export default {
     data() {
       return {
         menu: false,
       }
     },
+    props: ['studentName', 'tableName', 'date'],
     methods: {
       ...mapMutations([
         'changeTableName',
         'changeStudentName',
         'changeDate'
       ]),
-    },
-    computed: {
-      ...mapState([
-        'studentName',
-        'tableName',
-        'date'
-      ])
     }
   }
 </script>

@@ -38,13 +38,14 @@
 <script>
   import { createNamespacedHelpers } from 'vuex'
   import _ from 'lodash';
-  const { mapState, mapMutations } = createNamespacedHelpers('sto');
+  const { mapMutations } = createNamespacedHelpers('sto');
   export default {
     data() {
       return {
         snackbar: false
       }
     },
+    props:['STOs', 'newSTO', 'selectedSTO'],
     methods: {
       ...mapMutations([
         'addSTO',
@@ -60,13 +61,6 @@
         this.changeSelectedSTO(this.newSTO)
         this.changeNewSTO("")
       }
-    },
-    computed: {
-      ...mapState([
-        'STOs',
-        'selectedSTO',
-        'newSTO'
-      ])
     }
   }
 </script>
