@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "dev": "webpack-dev-server --open --contentBase src --port 8081 --hot"
+    "dev": "webpack-dev-server --contentBase src --port 8081 --hot"
   },
   "dependencies": {
     "path": "^0.12.7",

@@ -10,27 +10,33 @@ export default new Router({
     {
       path: '/user',
       name: 'user',
-      component: () => import('@/components/user')
+      component: () => import('@/page/user')
     },
     {
       path: '/dashboard',
       name: 'dashboard',
-      component: () => import('@/components/dashboard')
+      component: () => import('@/page/dashboard')
     },
     {
       path: '/tools',
       name: 'tools',
-      component: () => import('@/components/tools')
+      component: () => import('@/page/tools'),
+      children: [
+        // { path: 'table',
+        //   name: 'table',
+        //   component: () => import('@/components/tables/table')  
+        // }
+      ]
+    },
+    {
+      path: '/about',
+      name: 'about',
+      component: () => import('@/page/about')
     },
     {
       path: '/table',
       name: 'table',
       component: () => import('@/components/tables/table')
-    },
-    // {
-    //   path: '/state',
-    //   name: 'state',
-    //   component: () => import('@/components/studyState')
-    // }
+    }
   ]
 })

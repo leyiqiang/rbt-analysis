@@ -3,19 +3,10 @@
     <v-navigation-drawer app 
       v-model='drawer'>
       <v-list dense nav class="py-0">
-        <v-list-item two-line class="miniVariant && 'px-0'">
-          <v-list-item-avatar>
-            <img src="http://img4.imgtn.bdimg.com/it/u=178483043,3983341895&fm=26&gp=0.jpg">
-          </v-list-item-avatar>
-
-          <v-list-item-content>
-            <v-list-item-title>Application</v-list-item-title>
-            <v-list-item-subtitle>Subtext</v-list-item-subtitle>
-          </v-list-item-content>
-        </v-list-item>          
+        <user-info></user-info>
         <v-divider></v-divider>
         <v-list-item
-            to="dashboard"
+            to="/dashboard"
             link>
             <v-list-item-icon>
               <v-icon>mdi-view-dashboard</v-icon>
@@ -30,35 +21,35 @@
         value="true"
         >       
         <template v-slot:activator>
-          <v-list-item-title>Tools</v-list-item-title>
+          <v-list-item-title>工具</v-list-item-title>
         </template>
 
-        <v-list-item link to="table">
-          <v-list-item-title>测试表格</v-list-item-title>
+        <v-list-item link to="/table">
+          <v-list-item-title>表格1</v-list-item-title>
         </v-list-item>
         </v-list-group>
 
         <v-list-item
-            to="User"
+            to="/user"
             link>
             <v-list-item-icon>
               <v-icon>mdi-account</v-icon>
             </v-list-item-icon>
 
             <v-list-item-content>
-              <v-list-item-title>User</v-list-item-title>
+              <v-list-item-title>用户</v-list-item-title>
             </v-list-item-content>
         </v-list-item>      
 
         <v-list-item
-            to="about"
+            to="/about"
             link>
             <v-list-item-icon>
               <v-icon>mdi-help-box</v-icon>
             </v-list-item-icon>
 
             <v-list-item-content>
-              <v-list-item-title>About</v-list-item-title>
+              <v-list-item-title>关于</v-list-item-title>
             </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -88,25 +79,20 @@
 
 <script>
   import Vue from 'vue';
-  // import dashboard from '@/components/dashboard'
+  import UserInfo from '@/components/userInfo';
 
   export default {
     data() {
       return {
         drawer:null,
-        items: [
-          { title: 'RBT Tools', icon: 'mdi-tools', to:'tools' },
-          { title: 'Dashboard', icon: 'mdi-view-dashboard', to:'dashboard' },
-          { title: 'User', icon: 'mdi-account', to:'user' },
-          { title: 'About', icon: 'mdi-help-box' },
-        ]
       }
     },
     methods: {
       onChange(index) {
-        this.$router.push(index)
       }
-
+    },
+    components: {
+      UserInfo
     }
   }
 </script>

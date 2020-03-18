@@ -74,7 +74,7 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.vue', '.json'],
     alias: { // 修改vue被导入时候的包的路径
-      "vue$": "vue/dist/vue.esm.js",
+      "vue$": "vue/dist/vue.js",
       '@': path.join(__dirname, './src')
     }
   },
