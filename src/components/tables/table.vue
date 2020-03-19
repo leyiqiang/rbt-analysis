@@ -11,7 +11,14 @@
       <v-container>
         <v-row dense justify="center">
           <v-col align-self="center">
-            <s-t-o-menu :STOs="STOs" :selectedSTO="selectedSTO" :newSTO="newSTO"></s-t-o-menu>
+            <s-t-o-menu
+              :STOs="getSTOs"
+              :selectedSTO="selectedSTO"
+              :newSTO="newSTO"
+              @addNewSTO="addNewSTO"
+              @changeNewSTO="changeNewSTO"
+              @changeSelectedSTO="changeSelectedSTO"
+            ></s-t-o-menu>
           </v-col>
         </v-row>
         <data-record
@@ -33,7 +40,7 @@
     </v-card>
 
     <v-container>
-      <v-data-iterator :items="getDataKeys">
+      <v-data-iterator :items="getSTOs">
         <template v-slot:header>
           <v-toolbar
             class="mb-2"
@@ -57,19 +64,29 @@
                 <v-list dense>
                   <v-list-item v-for="(lineData, idx) in data[item]">
                       {{idx+1}}:
+                    <span class="group pa-2">
+                      <v-icon v-if="lineData.isSuccess" color="green">mdi-plus</v-icon>
+                      <v-icon v-else color="pink">mdi-minus</v-icon>
+                    </span>
                     <v-chip
                       label
                       class="ma-2"
-                      :color="lineData.isSuccess?'green':'pink'"
+                      :color="getPromptBGColor(lineData)"
                       text-color="white"
                     >
-                      <v-icon v-if="lineData.isSuccess "left>mdi-plus</v-icon>
-                      <v-icon v-else left>mdi-minus</v-icon>
                       {{lineData.promptLevel}}
                     </v-chip>
-                    <v-list-item-content>
-                      备注:{{lineData.note}}
-                    </v-list-item-content>
+                    <!--<v-list-item-content v-if="lineData.note">-->
+                      <!--<kbd>备注:{{lineData.note}}</kbd>-->
+                    <!--</v-list-item-content>-->
+                    <v-tooltip v-if="lineData.note" bottom>
+                      <template v-slot:activator="{ on }">
+                        <v-btn color="primary" dark v-on="on">{{getNoteExcerpt(lineData.note)}}</v-btn>
+                      </template>
+                      <span>{{lineData.note}}</span>
+                    </v-tooltip>
+
+
                   </v-list-item>
                 </v-list>
               </v-card>
@@ -80,6 +97,18 @@
         </template>
       </v-data-iterator>
     </v-container>
+    <v-snackbar
+      :value="snackbar"
+    >
+      请选择STO
+      <v-btn
+        color="red"
+        text
+        @click="snackbar = false"
+      >
+        Close
+      </v-btn>
+    </v-snackbar>
   </v-container>
 </template>
 <script>
@@ -90,6 +119,7 @@
   export default {
     data() {
       return {
+        snackbar: false
       }
     },
     computed: {
@@ -101,7 +131,7 @@
         'newSTO',
         'selectedSTO']),
       ...mapGetters('table',[
-        'getDataKeys',
+        'getSTOs',
       ]),
       ...mapState("tableHeader", [
         'tableName',
@@ -113,9 +143,43 @@
         'changeIsSuccess',
         'changePromptLevel',
         'changeNote',
+        'addNewSTO',
+        'addDataToSelectedSTO'
       ]),
-      addData(studentName, tableName, date, selectedSTO, currentData) {
-
+      ...mapMutations("sto", [
+        'addSTO',
+        'changeNewSTO',
+        'changeSelectedSTO'
+      ]),
+      getPromptBGColor(lineData) {
+        switch(lineData.promptLevel) {
+          case 'I':
+            return 'indigo lighten-3';
+          case 'G':
+            return 'indigo lighten-2';
+          case 'PV':
+            return 'indigo lighten-1';
+          case 'V':
+            return 'indigo darken-1';
+          case 'PP':
+            return 'indigo lighten-2'
+          case 'P':
+            return 'indigo darken-3'
+        }
+      },
+      getNoteExcerpt(note) {
+        if(note.length >= 5) {
+          return '备注:' + note.substring(0, 5) + '...'
+        } else {
+          return '备注:' + note
+        }
+      },
+      addData() {
+        if(_.isNil(this.selectedSTO) || this.selectedSTO ==="") {
+          this.snackbar = true
+          return
+        }
+        this.addDataToSelectedSTO({selectedSTO: this.selectedSTO, currentData: this.currentData})
       }
     },
     components: {

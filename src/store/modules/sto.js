@@ -1,7 +1,6 @@
 import { NA } from '@/utils/constants'
 
 const state = {
-  STOs: [],
   selectedSTO: "",
   newSTO: "",
 }
@@ -18,9 +17,6 @@ const mutations = {
   // remove_card(state, index) {
   //   state.selectedCards.splice(index, 1)
   // }
-  addSTO(state, sto) {
-    state.STOs.push(sto)
-  },
   changeSelectedSTO(state, sto) {
     state.selectedSTO = sto
   },

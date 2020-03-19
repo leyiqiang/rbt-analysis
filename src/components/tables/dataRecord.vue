@@ -15,6 +15,9 @@
         <v-btn value="N/A">
           N/A
         </v-btn>
+        <v-btn value="I">
+          I
+        </v-btn>
         <v-btn value="G">
           G
         </v-btn>

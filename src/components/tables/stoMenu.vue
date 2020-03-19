@@ -6,6 +6,7 @@
         :value="selectedSTO"
         :items="STOs"
         label="选择STO"
+        @change="emitChangeSelectedSTO"
         outlined
       ></v-select>
     </v-col>
@@ -13,7 +14,7 @@
       <v-text-field
         :value="newSTO"
         label="新建STO"
-        @change="changeNewSTO"
+        @change="emitChangeNewSTO"
         required>
       </v-text-field>
       <div class="my-2">
@@ -47,19 +48,20 @@
     },
     props:['STOs', 'newSTO', 'selectedSTO'],
     methods: {
-      ...mapMutations([
-        'addSTO',
-        'changeNewSTO',
-        'changeSelectedSTO'
-      ]),
+      emitChangeNewSTO(value) {
+        this.$emit('changeNewSTO', value)
+      },
+      emitChangeSelectedSTO(value) {
+        this.$emit('changeSelectedSTO', value)
+      },
       addSTOButtonAction() {
         if(_.isNil(this.newSTO) || this.newSTO === "") {
           this.snackbar = true
           return
         }
-        this.addSTO(this.newSTO)
-        this.changeSelectedSTO(this.newSTO)
-        this.changeNewSTO("")
+        this.$emit('addNewSTO', this.newSTO)
+        this.$emit('changeSelectedSTO', this.newSTO)
+        this.$emit('changeNewSTO', "")
       }
     }
   }
