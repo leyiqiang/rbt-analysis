@@ -22,8 +22,6 @@
           </v-col>
         </v-row>
         <data-record
-          @changeIsSuccess="changeIsSuccess"
-          @changePromptLevel="changePromptLevel"
           @changeNote="changeNote"
           :currentData="currentData">
         </data-record>
@@ -40,7 +38,7 @@
     </v-card>
 
     <v-container>
-      <v-data-iterator :items="getSTOs">
+      <v-data-iterator :items="getSTOs" :search="search">
         <template v-slot:header>
           <v-toolbar
             class="mb-2"
@@ -49,6 +47,16 @@
             flat
           >
             <v-toolbar-title>数据记录</v-toolbar-title>
+            <v-spacer></v-spacer>
+            <v-text-field
+              v-model="search"
+              clearable
+              flat
+              solo-inverted
+              hide-details
+              prepend-inner-icon="mdi-search"
+              label="Search"
+            ></v-text-field>
           </v-toolbar>
         </template>
 
@@ -57,39 +65,7 @@
             <v-col
               v-for="item in props.items"
               :key="item">
-              <v-card>
-                <v-card-title class="subheading font-weight-bold">{{ item }}</v-card-title>
-                <v-divider></v-divider>
-
-                <v-list dense>
-                  <v-list-item v-for="(lineData, idx) in data[item]">
-                      {{idx+1}}:
-                    <span class="group pa-2">
-                      <v-icon v-if="lineData.isSuccess" color="green">mdi-plus</v-icon>
-                      <v-icon v-else color="pink">mdi-minus</v-icon>
-                    </span>
-                    <v-chip
-                      label
-                      class="ma-2"
-                      :color="getPromptBGColor(lineData)"
-                      text-color="white"
-                    >
-                      {{lineData.promptLevel}}
-                    </v-chip>
-                    <!--<v-list-item-content v-if="lineData.note">-->
-                      <!--<kbd>备注:{{lineData.note}}</kbd>-->
-                    <!--</v-list-item-content>-->
-                    <v-tooltip v-if="lineData.note" bottom>
-                      <template v-slot:activator="{ on }">
-                        <v-btn color="primary" dark v-on="on">{{getNoteExcerpt(lineData.note)}}</v-btn>
-                      </template>
-                      <span>{{lineData.note}}</span>
-                    </v-tooltip>
-
-
-                  </v-list-item>
-                </v-list>
-              </v-card>
+              <data-card :item="item" :itemInfo="data[item]"></data-card>
 
             </v-col>
           </v-row>
@@ -113,13 +89,15 @@
 </template>
 <script>
   import { mapState, mapMutations, mapGetters } from 'vuex'
+  import DataCard from './dataCard'
   import TableHeader from './tableHeader'
   import STOMenu from './stoMenu'
   import DataRecord from './dataRecord'
   export default {
     data() {
       return {
-        snackbar: false
+        snackbar: false,
+        search:'',
       }
     },
     computed: {
@@ -144,48 +122,30 @@
         'changePromptLevel',
         'changeNote',
         'addNewSTO',
-        'addDataToSelectedSTO'
+        'resetCurrentData',
+        'addDataToSelectedSTO',
+        'resetNote',
       ]),
       ...mapMutations("sto", [
         'addSTO',
         'changeNewSTO',
         'changeSelectedSTO'
       ]),
-      getPromptBGColor(lineData) {
-        switch(lineData.promptLevel) {
-          case 'I':
-            return 'indigo lighten-3';
-          case 'G':
-            return 'indigo lighten-2';
-          case 'PV':
-            return 'indigo lighten-1';
-          case 'V':
-            return 'indigo darken-1';
-          case 'PP':
-            return 'indigo lighten-2'
-          case 'P':
-            return 'indigo darken-3'
-        }
-      },
-      getNoteExcerpt(note) {
-        if(note.length >= 5) {
-          return '备注:' + note.substring(0, 5) + '...'
-        } else {
-          return '备注:' + note
-        }
-      },
       addData() {
         if(_.isNil(this.selectedSTO) || this.selectedSTO ==="") {
           this.snackbar = true
           return
         }
         this.addDataToSelectedSTO({selectedSTO: this.selectedSTO, currentData: this.currentData})
+        // this.resetCurrentData()
+        this.resetNote()
       }
     },
     components: {
       TableHeader,
       STOMenu,
-      DataRecord
+      DataRecord,
+      DataCard
     },
     modules: {
 
