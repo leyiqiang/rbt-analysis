@@ -22,6 +22,8 @@
           </v-col>
         </v-row>
         <data-record
+          @changeIsSuccess="changeIsSuccess"
+          @changePromptLevel="changePromptLevel"
           @changeNote="changeNote"
           :currentData="currentData">
         </data-record>
@@ -54,8 +56,8 @@
               flat
               solo-inverted
               hide-details
-              prepend-inner-icon="mdi-search"
-              label="Search"
+              prepend-inner-icon="search"
+              label="搜索"
             ></v-text-field>
           </v-toolbar>
         </template>

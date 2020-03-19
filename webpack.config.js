@@ -56,7 +56,14 @@ module.exports = {
             },
           },]
       },
-      {      
+
+      {
+        test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+        use: {
+          loader: 'file-loader'
+        }
+      },
+      {
         test: /\.m?js$/, //正则表达式
         exclude: /(node_modules)/, //必须将node_modules排除掉, 否则非常消耗cpu, 也会慢
         use: {

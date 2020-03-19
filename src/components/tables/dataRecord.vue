@@ -9,7 +9,7 @@
                 @change="emitChangeIsSuccess"></v-switch>
       <v-btn-toggle
         :value="currentData.promptLevel"
-        color="deep-purple accent-3"
+        color="green darken-1"
         @change="emitChangePromptLevel"
       >
         <v-btn value="N/A">

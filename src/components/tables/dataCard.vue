@@ -50,7 +50,7 @@
                           :label="getLabel(lineData)"></v-switch>
                 <v-btn-toggle
                   v-model="lineData.promptLevel"
-                  color="deep-purple accent-3"
+                  color="green darken-2"
                 >
                   <v-btn value="N/A">
                     N/A

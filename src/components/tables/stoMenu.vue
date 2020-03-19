@@ -18,7 +18,7 @@
         required>
       </v-text-field>
       <div class="my-2">
-        <v-btn @click="addSTOButtonAction" small color="primary">新建STO</v-btn>
+        <v-btn @click="addSTOButtonAction" small dark color="indigo">新建STO</v-btn>
       </div>
     </v-col>
     <v-snackbar
