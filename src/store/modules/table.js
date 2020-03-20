@@ -1,16 +1,16 @@
 import _ from 'lodash'
+import { NA } from '@/utils/constants'
 const state = {
     data: {
       "打人": [{isSuccess: true, promptLevel: 'N/A', note:""}],
       "洗手": [{isSuccess: true, promptLevel: 'N/A', note:""}],
       "命名动作(刷牙, 拥抱, 睡觉, 挥手)": [{isSuccess: true, promptLevel: 'N/A', note:"拥抱"}]
     }, // stoName: [{isSuccess: false, promptLevel: PP, note: ""}, ...]
-    currentData: {
-      isSuccess: false,
-      promptLevel:'N/A',
-      note: ""
-    },
 }
+
+const ADD_DATA_TO_SELECTED_STO = 'ADD_DATA_TO_SELECTED_STO'
+const ADD_NEW_STO = 'ADD_NEW_STO'
+const SET_DATA = 'SET_DATA'
 
 const getters = {
   getSTOs: (state) => {
@@ -24,53 +24,41 @@ const getters = {
 }
 
   const mutations = {
-    // remove_card(state, index) {
-    //   state.selectedCards.splice(index, 1)
-    // }
-    changeIsSuccess(state, data) {
-      state.currentData.isSuccess = data
-    },
-    changePromptLevel(state, data) {
-      state.currentData.promptLevel= data
-    },
-    changeNote(state, note) {
-      console.log(note)
-      state.currentData.note = note
-    },
-    addNewSTO(state, sto) {
+    [ADD_NEW_STO](state, sto) {
       if(_.isNil(state.data[sto])) {
         let newData = _.clone(state.data)
         newData[sto] = []
         state.data= newData
       }
     },
-    addDataToSelectedSTO(state, data) {
+    [ADD_DATA_TO_SELECTED_STO](state, data) {
       const { selectedSTO, currentData } = data
       const currentDataCopy = _.clone(currentData)
       state.data[selectedSTO].push(currentDataCopy)
     },
-    resetNote(state) {
-      state.currentData.note = ""
+    [SET_DATA](state, data) {
+      state.data = data
+    }
+  }
+
+  const actions = {
+    addDataToSelectedSTO({commit}, data) {
+      commit(ADD_DATA_TO_SELECTED_STO, data)
     },
-    resetCurrentData(state) {
-      state.currentData = {
-        isSuccess: false,
-        promptLevel:'N/A',
-        note: ""
-      }
+    addNewSTO({commit}, sto) {
+      commit(ADD_NEW_STO, sto)
     },
-    // setLineDataBySTOandIdx(state, data) {
-    //   const { STO, idx, linedata } = data
-    //   if (data[STO]) {
-    //     return state.data[STO][idx] = linedata
-    //   }
-    // }
+
+    setData({commit}, data) {
+      commit(SET_DATA, data)
+    }
   }
   
 export default {
     namespaced: true,
     state,
     getters,
-    mutations
+    mutations,
+    actions
   }
   

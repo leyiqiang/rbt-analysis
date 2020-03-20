@@ -87,7 +87,9 @@
   </v-container>
 </template>
 <script>
-  import { mapState, mapMutations, mapGetters } from 'vuex'
+  import { mapState, mapActions, mapGetters } from 'vuex'
+  import { NA } from '@/utils/constants'
+
   import DataCard from './dataCard'
   import TableHeader from './tableHeader'
   import STOMenu from './stoMenu'
@@ -98,12 +100,16 @@
         selectedSTO: "",
         snackbar: false,
         search:'',
+        currentData: {
+          isSuccess: false,
+          promptLevel:NA,
+          note: ""
+        },
       }
     },
     computed: {
       ...mapState("table", [
-        'data',
-        'currentData']),
+        'data',]),
       ...mapGetters('table',[
         'getSTOs',
       ]),
@@ -113,17 +119,31 @@
         'date']),
     },
     methods: {
-      ...mapMutations("table", [
-        'changeIsSuccess',
-        'changePromptLevel',
-        'changeNote',
+      ...mapActions("table", [
         'addNewSTO',
-        'resetCurrentData',
         'addDataToSelectedSTO',
-        'resetNote',
       ]),
+      resetCurrentData() {
+        this.currentData = {
+          isSuccess: false,
+          promptLevel:NA,
+          note: ""
+        }
+      },
+      changeIsSuccess(value) {
+        this.currentData.isSuccess = value
+      },
+      changePromptLevel(value) {
+        this.currentData.promptLevel = value
+      },
+      changeNote(value) {
+        this.currentData.note = value
+      },
       updateSelectedSTO(value) {
         this.selectedSTO = value
+      },
+      resetNote() {
+        this.currentData.note = ""
       },
       addData() {
         if(_.isNil(this.selectedSTO) || this.selectedSTO ==="") {
