@@ -75,8 +75,7 @@
               <v-col align-self="end">
                 <v-text-field
                   v-model="lineData.note"
-                  label="备注"
-                  required>
+                  label="备注">
                 </v-text-field>
               </v-col>
               </v-container>

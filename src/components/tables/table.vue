@@ -13,11 +13,8 @@
           <v-col align-self="center">
             <s-t-o-menu
               :STOs="getSTOs"
-              :selectedSTO="selectedSTO"
-              :newSTO="newSTO"
+              @updateSelectedSTO="updateSelectedSTO"
               @addNewSTO="addNewSTO"
-              @changeNewSTO="changeNewSTO"
-              @changeSelectedSTO="changeSelectedSTO"
             ></s-t-o-menu>
           </v-col>
         </v-row>
@@ -98,6 +95,7 @@
   export default {
     data() {
       return {
+        selectedSTO: "",
         snackbar: false,
         search:'',
       }
@@ -106,10 +104,6 @@
       ...mapState("table", [
         'data',
         'currentData']),
-      ...mapState("sto", [
-        'STOs',
-        'newSTO',
-        'selectedSTO']),
       ...mapGetters('table',[
         'getSTOs',
       ]),
@@ -128,11 +122,9 @@
         'addDataToSelectedSTO',
         'resetNote',
       ]),
-      ...mapMutations("sto", [
-        'addSTO',
-        'changeNewSTO',
-        'changeSelectedSTO'
-      ]),
+      updateSelectedSTO(value) {
+        this.selectedSTO = value
+      },
       addData() {
         if(_.isNil(this.selectedSTO) || this.selectedSTO ==="") {
           this.snackbar = true

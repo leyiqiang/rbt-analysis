@@ -3,18 +3,17 @@
     <v-col align-self="center">
       <v-select
         required
-        :value="selectedSTO"
+        v-model="mySelectedSTO"
         :items="STOs"
         label="选择STO"
-        @change="emitChangeSelectedSTO"
+        @change="changeSelectedSTO"
         outlined
       ></v-select>
     </v-col>
     <v-col align-self="center">
       <v-text-field
-        :value="newSTO"
+        v-model="newSTO"
         label="新建STO"
-        @change="emitChangeNewSTO"
         required>
       </v-text-field>
       <div class="my-2">
@@ -43,16 +42,17 @@
   export default {
     data() {
       return {
-        snackbar: false
+        newSTO:"",
+        snackbar: false,
+        mySelectedSTO: this.selectedSTO
       }
     },
-    props:['STOs', 'newSTO', 'selectedSTO'],
+    computed: {
+    },
+    props: ['STOs', 'selectedSTO'],
     methods: {
-      emitChangeNewSTO(value) {
-        this.$emit('changeNewSTO', value)
-      },
-      emitChangeSelectedSTO(value) {
-        this.$emit('changeSelectedSTO', value)
+      changeSelectedSTO() {
+        this.$emit('updateSelectedSTO', this.mySelectedSTO)
       },
       addSTOButtonAction() {
         if(_.isNil(this.newSTO) || this.newSTO === "") {
@@ -60,8 +60,9 @@
           return
         }
         this.$emit('addNewSTO', this.newSTO)
-        this.$emit('changeSelectedSTO', this.newSTO)
-        this.$emit('changeNewSTO', "")
+        this.$emit('updateSelectedSTO', this.newSTO)
+        this.mySelectedSTO = this.newSTO
+        this.newSTO = ""
       }
     }
   }
