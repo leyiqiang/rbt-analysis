@@ -3,10 +3,10 @@
 
   <v-row>
     <v-col align-self="center">
-      <v-switch v-model="currentData.isSuccess"
+      <v-checkbox v-model="currentData.isSuccess"
                 color="success"
                 :label="getLabel"
-                @change="emitChangeIsSuccess"></v-switch>
+                @change="emitChangeIsSuccess"></v-checkbox>
       <v-btn-toggle
         :value="currentData.promptLevel"
         color="green darken-1"

@@ -89,6 +89,7 @@
 <script>
   import { mapState, mapActions, mapGetters } from 'vuex'
   import { NA } from '@/utils/constants'
+  import MyTable from '@/store/modules/table'
 
   import DataCard from './dataCard'
   import TableHeader from './tableHeader'
@@ -106,6 +107,9 @@
           note: ""
         },
       }
+    },
+    mounted() {
+      // this.$store.registerModule('table', MyTable)
     },
     computed: {
       ...mapState("table", [
