@@ -1,9 +1,5 @@
 <template>
   <v-container>
-    <table-header :tableName="tableName"
-                  :studentName="studentName"
-                  :date="date">
-    </table-header>
     <v-divider></v-divider>
     <v-card
       class="mx-auto"
@@ -87,14 +83,15 @@
   </v-container>
 </template>
 <script>
-  import { mapState, mapActions, mapGetters } from 'vuex'
   import { NA } from '@/utils/constants'
   import MyTable from '@/store/modules/table'
 
   import DataCard from './dataCard'
-  import TableHeader from './tableHeader'
   import STOMenu from './stoMenu'
   import DataRecord from './dataRecord'
+
+  import { mapState, mapGetters, mapActions } from 'vuex'
+
   export default {
     data() {
       return {
@@ -117,10 +114,6 @@
       ...mapGetters('table',[
         'getSTOs',
       ]),
-      ...mapState("tableHeader", [
-        'tableName',
-        'studentName',
-        'date']),
     },
     methods: {
       ...mapActions("table", [
@@ -160,7 +153,6 @@
       }
     },
     components: {
-      TableHeader,
       STOMenu,
       DataRecord,
       DataCard

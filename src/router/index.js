@@ -29,6 +29,16 @@ export default new Router({
       ]
     },
     {
+      path: '/newTable',
+      name: 'newTable',
+      component: () => import('@/page/newTable')
+    },
+    {
+      path: '/editExistingTable',
+      name: 'editExistingTable',
+      component: () => import('@/page/editExistingTable')
+    },
+    {
       path: '/about',
       name: 'about',
       component: () => import('@/page/about')

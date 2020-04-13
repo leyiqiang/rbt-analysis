@@ -1,4 +1,8 @@
+const TABLE_ONE = '表格1'
+const ABC_TABLE = 'ABC表格'
+
 const state = {
+  tableTypes:[TABLE_ONE, ABC_TABLE],
   tableName: "",
   studentName: "",
   date: new Date().toISOString().substr(0, 10),
