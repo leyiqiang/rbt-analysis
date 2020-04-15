@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import tools from './modules/tools'
-import table from './modules/table'
+import table from './modules/tableOne'
 import newTableForm from './modules/newTableForm'
 import abcTable from './modules/abcTable'
 

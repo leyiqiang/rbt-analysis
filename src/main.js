@@ -7,8 +7,9 @@ import App from './App.vue' //默认, webpack无法打包.vue文件, 需要相�
 import router from './router'
 import store from './store' // 引入
 import vuetify from './plugins/vuetify'
-
 // Vue.use(Vuetify);
+
+
 const vm = new Vue({
   vuetify,
   router,

@@ -84,7 +84,7 @@
 </template>
 <script>
   import { NA } from '@/utils/constants'
-  import MyTable from '@/store/modules/table'
+  import MyTable from '@/store/modules/tableOne'
 
   import DataCard from './dataCard'
   import STOMenu from './stoMenu'

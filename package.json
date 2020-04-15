@@ -3,9 +3,11 @@
     "dev": "webpack-dev-server --contentBase src --port 8081 --hot"
   },
   "dependencies": {
+    "axios": "^0.19.2",
     "lodash": "^4.17.15",
     "path": "^0.12.7",
     "vant": "^2.5.2",
+    "vee-validate": "^3.2.5",
     "vue": "^2.6.11",
     "vue-router": "^3.1.6",
     "vuetify": "^2.2.17",
