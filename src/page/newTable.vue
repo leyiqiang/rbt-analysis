@@ -99,12 +99,10 @@
       'date']),
     },
     methods: {
-      ...mapMutations([
+      ...mapActions(['createNewTable',
         'changeTableName',
         'changeStudentName',
-        'changeDate'
-      ]),
-      ...mapActions(['createNewTable']),
+        'changeDate']),
       async submit() {
         const res = await this.$refs.observer.validate()
         if(res) {
@@ -112,6 +110,9 @@
             tableName: this.tableName,
             studentName: this.studentName,
             date: this.date})
+        }
+        if(!this.isLoading) {
+          this.$router.push({name:'tableOne', params: {tableName: this.tableName, studentName: this.studentName, date: this.date}})
         }
       },
     }

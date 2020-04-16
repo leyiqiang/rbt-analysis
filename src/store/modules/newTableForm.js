@@ -1,10 +1,14 @@
-import vueAxios from '../../api/vueAxios'
+import vueAxios from '@/api/vueAxios'
+import { TABLE_ONE_API } from '@/api/table'
 
 const TABLE_ONE = '表格1'
 const ABC_TABLE = 'ABC表格'
 
 const CHANGE_ERROR_MESSAGE = 'CHANGE_ERROR_MESSAGE'
 const CHANGE_IS_LOADING = 'CHANGE_IS_LOADING'
+const CHANGE_STUDENT_NAME = 'CHANGE_STUDENT_NAME'
+const CHANGE_TABLE_NAME = 'CHANGE_TABLE_NAME'
+const CHANGE_DATE = 'CHANGE_DATE'
 
 const state = {
   isLoading: false,
@@ -24,43 +28,62 @@ const getters = {
 }
 
 const actions = {
-  async createNewTable({ commit }, data) {
+  async createNewTable({ commit, rootState}, data) {
+    const route = rootState.route
     const { tableType, tableName, studentName, date } = data
     commit(CHANGE_ERROR_MESSAGE, "")
     switch(tableType) {
       case TABLE_ONE:
-        try {
-          let res = await vueAxios.post('/api/tables/create/tableOne', {tableName, studentName, date})
+        // try {
+          let res = await vueAxios.post(TABLE_ONE_API, {tableName, studentName, date})
+          if(res.data) {
+            const tableData = res.data
+            const { tableName, studentName, date } = tableData
+            commit(CHANGE_STUDENT_NAME, studentName)
+            commit(CHANGE_TABLE_NAME, tableName)
+            commit(CHANGE_DATE, date)
+
+          }
+
           commit(CHANGE_IS_LOADING, false)
-          console.log(res)
-        }
-        catch (e) {
-          commit(CHANGE_ERROR_MESSAGE, e.response.data.message)
-          commit(CHANGE_IS_LOADING, false)
-        }
+        // }
+        // catch (e) {
+        //   if(e.response){
+        //     commit(CHANGE_ERROR_MESSAGE, e.response.data.message)
+        //     commit(CHANGE_IS_LOADING, false)
+        //   }
+        // }
         break;
       case ABC_TABLE:
         break;
 
     }
+  },
+  changeStudentName({ commit }, data) {
+    commit(CHANGE_STUDENT_NAME, data)
+  },
+  changeTableName({ commit }, data) {
+    commit(CHANGE_TABLE_NAME, data)
+  },
+  changeDate({ commit }, data) {
+    commit(CHANGE_DATE, date)
   }
 }
 
 const mutations = {
   [CHANGE_ERROR_MESSAGE](state, msg) {
     state.errorMessage = msg
-    console.log(state.errorMessage)
   },
   [CHANGE_IS_LOADING](state, bool) {
     state.isLoading = bool
   },
-  changeTableName(state, name) {
+  [CHANGE_TABLE_NAME](state, name) {
     state.tableName = name
   },
-  changeStudentName(state, name) {
+  [CHANGE_STUDENT_NAME](state, name) {
     state.studentName = name
   },
-  changeDate(state, date) {
+  [CHANGE_DATE](state, date) {
     state.date = date
   }
 }

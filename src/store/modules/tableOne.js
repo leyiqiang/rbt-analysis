@@ -9,8 +9,10 @@ export default {
   namespaced:true,
   state() {
     return {
-      id: "123abcXYZ",
-      data: {
+      tableName: "",
+      studentName:"",
+      date:"",
+      records: {
         "打人": [{ isSuccess: true, promptLevel: 'N/A', note: "" }],
         "洗手": [{ isSuccess: true, promptLevel: 'N/A', note: "" }],
         "命名动作(刷牙, 拥抱, 睡觉, 挥手)": [{ isSuccess: true, promptLevel: 'N/A', note: "拥抱" }]
@@ -40,6 +42,11 @@ export default {
     }
   },
   actions: {
+    getTableData({commit, rootState}, data) {
+      console.log(rootState.route)
+      commit(SET_DATA, data)
+    },
+
     addDataToSelectedSTO({commit}, data) {
       commit(ADD_DATA_TO_SELECTED_STO, data)
     },

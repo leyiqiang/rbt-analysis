@@ -33,6 +33,10 @@ export default new Router({
       name: 'newTable',
       component: () => import('@/page/newTable')
     },
+    {path:'/tableOne/:studentName/:date/:tableName',
+      name:'tableOne',
+      component: () => import('@/page/tableOne')
+    },
     {
       path: '/editExistingTable',
       name: 'editExistingTable',
