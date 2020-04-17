@@ -1,5 +1,7 @@
 import _ from 'lodash'
+import vueAxios from '@/api/vueAxios'
 import { NA } from '@/utils/constants'
+import { GET_TABLE_API } from '@/api/table'
 
 const ADD_DATA_TO_SELECTED_STO = 'ADD_DATA_TO_SELECTED_STO'
 const ADD_NEW_STO = 'ADD_NEW_STO'
@@ -42,8 +44,9 @@ export default {
     }
   },
   actions: {
-    getTableData({commit, rootState}, data) {
-      console.log(rootState.route)
+    async getTableData({commit, rootState}, data) {
+      const { tableName, studentName, date } = rootState.route.params
+      let res = await vueAxios.get(GET_TABLE_API + '/' + studentName + '/' + tableName + '/' + date, rootState.route.params)
       commit(SET_DATA, data)
     },
 

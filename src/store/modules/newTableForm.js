@@ -30,29 +30,28 @@ const getters = {
 const actions = {
   async createNewTable({ commit, rootState}, data) {
     const route = rootState.route
-    const { tableType, tableName, studentName, date } = data
+    const { tableType, tableName, studentName, date, success } = data
     commit(CHANGE_ERROR_MESSAGE, "")
     switch(tableType) {
       case TABLE_ONE:
-        // try {
+        try {
           let res = await vueAxios.post(TABLE_ONE_API, {tableName, studentName, date})
           if(res.data) {
             const tableData = res.data
             const { tableName, studentName, date } = tableData
             commit(CHANGE_STUDENT_NAME, studentName)
             commit(CHANGE_TABLE_NAME, tableName)
-            commit(CHANGE_DATE, date)
-
+            commit(CHANGE_DATE, date.substr(0,10))
+            success()
           }
-
           commit(CHANGE_IS_LOADING, false)
-        // }
-        // catch (e) {
-        //   if(e.response){
-        //     commit(CHANGE_ERROR_MESSAGE, e.response.data.message)
-        //     commit(CHANGE_IS_LOADING, false)
-        //   }
-        // }
+        }
+        catch (e) {
+          if(e.response){
+            commit(CHANGE_ERROR_MESSAGE, e.response.data.message)
+            commit(CHANGE_IS_LOADING, false)
+          }
+        }
         break;
       case ABC_TABLE:
         break;
@@ -85,7 +84,7 @@ const mutations = {
   },
   [CHANGE_DATE](state, date) {
     state.date = date
-  }
+  },
 }
 
 export default {

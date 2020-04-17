@@ -109,10 +109,11 @@
           this.createNewTable({tableType: this.selectedType,
             tableName: this.tableName,
             studentName: this.studentName,
-            date: this.date})
-        }
-        if(!this.isLoading) {
-          this.$router.push({name:'tableOne', params: {tableName: this.tableName, studentName: this.studentName, date: this.date}})
+            date: this.date,
+            success: () => {
+              this.$router.push({name:'tableOne', params: {tableName: this.tableName, studentName: this.studentName, date: this.date}})
+
+            }})
         }
       },
     }
