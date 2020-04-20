@@ -1,5 +1,6 @@
 import vueAxios from '@/api/vueAxios'
 import { TABLE_ONE_API } from '@/api/table'
+import { formatDate } from '@/utils/utils';
 
 const TABLE_ONE = '表格1'
 const ABC_TABLE = 'ABC表格'
@@ -16,7 +17,7 @@ const state = {
   tableTypes:[TABLE_ONE, ABC_TABLE],
   tableName: "",
   studentName: "",
-  date: new Date().toISOString().substr(0, 10),
+  date: formatDate(new Date().toISOString()),
 }
 
 const getters = {
@@ -41,7 +42,7 @@ const actions = {
             const { tableName, studentName, date } = tableData
             commit(CHANGE_STUDENT_NAME, studentName)
             commit(CHANGE_TABLE_NAME, tableName)
-            commit(CHANGE_DATE, date.substr(0,10))
+            commit(CHANGE_DATE, formatDate(date))
             success()
           }
           commit(CHANGE_IS_LOADING, false)
