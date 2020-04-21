@@ -144,9 +144,6 @@
     data() {
       return {
         tableType: 'TableOne',
-        tableName: this.$route.params.tableName,
-        studentName: this.$route.params.studentName,
-        date: this.$route.params.date,
         selectedSTO: "",
         snackbar: false,
         search:'',
@@ -159,6 +156,9 @@
     },
     computed: {
       ...mapState([
+        'studentName',
+        'tableName',
+        'date',
         'records',
         "errorMessage"]),
       ...mapGetters([

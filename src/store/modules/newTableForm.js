@@ -10,8 +10,10 @@ const CHANGE_IS_LOADING = 'CHANGE_IS_LOADING'
 const CHANGE_STUDENT_NAME = 'CHANGE_STUDENT_NAME'
 const CHANGE_TABLE_NAME = 'CHANGE_TABLE_NAME'
 const CHANGE_DATE = 'CHANGE_DATE'
+const CHANGE_TABLE_ID = 'CHANGE_TABLE_ID'
 
 const state = {
+  tableID: "",
   isLoading: false,
   errorMessage: "",
   tableTypes:[TABLE_ONE, ABC_TABLE],
@@ -39,10 +41,11 @@ const actions = {
           let res = await vueAxios.post(TABLE_ONE_API, {tableName, studentName, date})
           if(res.data) {
             const tableData = res.data
-            const { tableName, studentName, date } = tableData
+            const { _id, tableName, studentName, date } = tableData
             commit(CHANGE_STUDENT_NAME, studentName)
             commit(CHANGE_TABLE_NAME, tableName)
             commit(CHANGE_DATE, formatDate(date))
+            commit(CHANGE_TABLE_ID, _id)
             success()
           }
           commit(CHANGE_IS_LOADING, false)
@@ -86,6 +89,9 @@ const mutations = {
   [CHANGE_DATE](state, date) {
     state.date = date
   },
+  [CHANGE_TABLE_ID](state, id) {
+    state.tableID = id
+  }
 }
 
 export default {

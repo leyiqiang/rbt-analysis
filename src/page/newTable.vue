@@ -93,6 +93,7 @@
       ...mapState([
       'tableTypes',
       'tableName',
+      'tableID',
       'isLoading',
       'errorMessage',
       'studentName',
@@ -111,7 +112,7 @@
             studentName: this.studentName,
             date: this.date,
             success: () => {
-              this.$router.push({name:'tableOne', params: {tableName: this.tableName, studentName: this.studentName, date: this.date}})
+              this.$router.push({name:'tableOne', params: {tableID: this.tableID}})
 
             }})
         }

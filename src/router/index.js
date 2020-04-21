@@ -33,7 +33,7 @@ export default new Router({
       name: 'newTable',
       component: () => import('@/page/newTable')
     },
-    {path:'/tableOne/:studentName/:date/:tableName',
+    {path:'/tableOne/:tableID',
       name:'tableOne',
       component: () => import('@/page/tableOne')
     },
