@@ -1,5 +1,5 @@
 import vueAxios from '@/api/vueAxios'
-import { TABLE_ONE_API } from '@/api/table'
+import { CREATE_TABLE_ONE_API } from '@/api/table'
 import { formatDate } from '@/utils/utils';
 
 const TABLE_ONE = '表格1'
@@ -38,7 +38,7 @@ const actions = {
     switch(tableType) {
       case TABLE_ONE:
         try {
-          let res = await vueAxios.post(TABLE_ONE_API, {tableName, studentName, date})
+          let res = await vueAxios.post(CREATE_TABLE_ONE_API, {tableName, studentName, date})
           if(res.data) {
             const tableData = res.data
             const { _id, tableName, studentName, date } = tableData

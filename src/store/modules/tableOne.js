@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import vueAxios from '@/api/vueAxios'
 import { formatDate } from '@/utils/utils'
-import { GET_TABLE_API } from '@/api/table'
+import { GET_TABLE_API, NEW_STO_API } from '@/api/table'
 
 const ADD_DATA_TO_SELECTED_STO = 'ADD_DATA_TO_SELECTED_STO'
 const ADD_NEW_STO = 'ADD_NEW_STO'
@@ -19,6 +19,7 @@ export default {
   namespaced:true,
   state() {
     return {
+      errorSnackBar: false,
       tableID: "",
       errorMessage: "",
       tableName: "",
@@ -39,55 +40,72 @@ export default {
     },
   },
   mutations: {
-    [ADD_NEW_STO](state, sto) {
-      const findIdx = findRecordIndexBySTO(sto, state.records)
-      if(findIdx === -1) {
-        state.records.push({sto: sto, stoList:[]})
-      }
-      // todo
+    [ADD_NEW_STO](state, data) {
+      const {_id, tableID, sto, stoList} = data
+        state.records.push({_id, sto, stoList})
     },
     [ADD_DATA_TO_SELECTED_STO](state, data) {
-      const { selectedSTO, currentData } = data
-      const findIdx = findRecordIndexBySTO(selectedSTO, state.records)
-      if(findIdx !== -1) {
-        const stoList = state.records[findIdx].stoList
-        stoList.push(currentData)
-      }
+      const stoList = state.records[findIdx].stoList
+      stoList.push(currentData)
       // todo
     },
     [CHANGE_ERROR_MESSAGE](state, data) {
       state.errorMessage = data
+      state.errorSnackBar = true
     },
 
     [SET_DATA](state, data) {
-      let { _id, studentName, date, tableName, records } = data
-      console.log(studentName)
+      let { _id, studentName, date, tableName, stoRecords } = data
       state.studentName= studentName
       state.tableName = tableName
       state.date = formatDate(date)
-      state.records = records
+      state.records = stoRecords
       state.tableID = _id
+    },
+    setErrorSnackBar(state, data) {
+      state.snackBar = data
     }
   },
   actions: {
+
     async getTableData({commit, rootState}, data) {
       const { tableID } = rootState.route.params
       try {
         let res = await vueAxios.get(GET_TABLE_API + '/' + tableID, rootState.route.params)
         commit(SET_DATA, res.data)
-        console.log(res.data)
       } catch (e) {
         if(e.response){
           commit(CHANGE_ERROR_MESSAGE, e.response.data.message)
+        } else {
+          commit(CHANGE_ERROR_MESSAGE, e)
+
         }
       }
     },
 
-    addDataToSelectedSTO({commit}, data) {
+    addDataToSelectedSTO({commit,state}, data) {
       commit(ADD_DATA_TO_SELECTED_STO, data)
     },
-    addNewSTO({commit}, sto) {
-      commit(ADD_NEW_STO, sto)
+
+    async addNewSTO({commit, state, rootState}, sto) {
+      const findIdx = findRecordIndexBySTO(sto, state.records)
+      if(findIdx === -1) {
+        const { tableID } = rootState.route.params
+        try {
+          const res = await vueAxios.post(NEW_STO_API + '/' + tableID, { stoName: sto })
+          commit(ADD_NEW_STO, res.data.newSTO)
+        } catch(err) {
+          if(e.response){
+            commit(CHANGE_ERROR_MESSAGE, e.response.data.message)
+          } else {
+            commit(CHANGE_ERROR_MESSAGE, e)
+          }
+        }
+
+      } else {
+        commit(CHANGE_ERROR_MESSAGE, '该STO已存在')
+
+      }
     },
 
     setData({commit}, data) {

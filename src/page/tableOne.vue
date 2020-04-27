@@ -1,17 +1,18 @@
 <template>
     <v-form value>
       <v-container>
-        <v-alert
-          v-if="errorMessage!==''"
-          alert=true
-          border="left"
-          close-text="Close Alert"
-          color="red"
-          dark
-          dismissible
+        <v-snackbar
+          :value="errorSnackBar"
         >
           {{errorMessage}}
-        </v-alert>
+          <v-btn
+            color="red"
+            text
+            @click="setErrorSnackBar(false)"
+          >
+            Close
+          </v-btn>
+        </v-snackbar>
         <v-row>
           <v-col cols="12" md="3">
             <v-text-field
@@ -160,6 +161,7 @@
         'tableName',
         'date',
         'records',
+        'errorSnackBar',
         "errorMessage"]),
       ...mapGetters([
         'getSTOs',
@@ -171,6 +173,7 @@
       DataCard
     },
     methods: {
+      ...mapMutations(['setErrorSnackBar']),
       ...mapActions(['getTableData',
         'addNewSTO',
         'addDataToSelectedSTO',]),
