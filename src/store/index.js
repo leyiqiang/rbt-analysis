@@ -5,15 +5,17 @@ import table from './modules/tableOne'
 import newTableForm from './modules/newTableForm'
 import abcTable from './modules/abcTable'
 import tableOne from './modules/tableOne'
+import tablesManagement from './modules/tablesManagement'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-    modules: {
-        tools,
-        table,
-        newTableForm,
-        abcTable,
-        tableOne
-    }
+  modules: {
+    tools,
+    table,
+    newTableForm,
+    abcTable,
+    tableOne,
+    tablesManagement
+  }
 })

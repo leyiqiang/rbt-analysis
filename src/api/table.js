@@ -13,3 +13,5 @@ export const NEW_STO_API = TABLE_ONE_API + '/newSTO'
 export const ADD_SINGLE_STO_DATA_API = TABLE_ONE_API + '/add'
 
 export const EDIT_SINGLE_STO_DATA_API = TABLE_ONE_API + '/edit'
+
+export const GET_ALL_TABLE_ONE_API = TABLE_ONE_API + '/all'

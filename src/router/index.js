@@ -40,7 +40,7 @@ export default new Router({
     {
       path: '/editExistingTable',
       name: 'editExistingTable',
-      component: () => import('@/page/editExistingTable')
+      component: () => import('@/page/tablesManagement')
     },
     {
       path: '/about',
