@@ -1,7 +1,12 @@
 import _ from 'lodash'
 import vueAxios from '@/api/vueAxios'
 import { formatDate } from '@/utils/utils'
-import { GET_TABLE_API, NEW_STO_API } from '@/api/table'
+import {
+  GET_TABLE_API,
+  NEW_STO_API,
+  ADD_SINGLE_STO_DATA_API,
+  EDIT_SINGLE_STO_DATA_API
+} from '@/api/table'
 
 const ADD_DATA_TO_SELECTED_STO = 'ADD_DATA_TO_SELECTED_STO'
 const ADD_NEW_STO = 'ADD_NEW_STO'
@@ -45,8 +50,10 @@ export default {
         state.records.push({_id, sto, stoList})
     },
     [ADD_DATA_TO_SELECTED_STO](state, data) {
+      const { selectedSTO, stoSingleData, findIdx } = data
+      // const findIdx = findRecordIndexBySTO(selectedSTO, state.records)
       const stoList = state.records[findIdx].stoList
-      stoList.push(currentData)
+      stoList.push(stoSingleData)
       // todo
     },
     [CHANGE_ERROR_MESSAGE](state, data) {
@@ -67,7 +74,6 @@ export default {
     }
   },
   actions: {
-
     async getTableData({commit, rootState}, data) {
       const { tableID } = rootState.route.params
       try {
@@ -78,30 +84,42 @@ export default {
           commit(CHANGE_ERROR_MESSAGE, e.response.data.message)
         } else {
           commit(CHANGE_ERROR_MESSAGE, e)
-
         }
       }
     },
 
-    addDataToSelectedSTO({commit,state}, data) {
-      commit(ADD_DATA_TO_SELECTED_STO, data)
+    async addDataToSelectedSTO({commit,state}, data) {
+      const { selectedSTO, currentData } = data
+      const findIdx = findRecordIndexBySTO(selectedSTO, state.records)
+      const stoID = state.records[findIdx]._id
+      try {
+        const res = await vueAxios.post(ADD_SINGLE_STO_DATA_API + '/' + stoID, { stoRecordID: stoID, ...currentData})
+        const stoSingleData = res.data.stoSingleData
+        commit(ADD_DATA_TO_SELECTED_STO, { selectedSTO, stoSingleData, findIdx})
+      } catch(e) {
+        if(e.response){
+          commit(CHANGE_ERROR_MESSAGE, e.response.data.message)
+        } else {
+          commit(CHANGE_ERROR_MESSAGE, e)
+        }
+      }
     },
 
     async addNewSTO({commit, state, rootState}, sto) {
       const findIdx = findRecordIndexBySTO(sto, state.records)
+      // make sure no duplicates
       if(findIdx === -1) {
         const { tableID } = rootState.route.params
         try {
           const res = await vueAxios.post(NEW_STO_API + '/' + tableID, { stoName: sto })
-          commit(ADD_NEW_STO, res.data.newSTO)
+          commit(ADD_NEW_STO, {...res.data.newSTO, stoList:[]})
         } catch(err) {
-          if(e.response){
+          if(err.response){
             commit(CHANGE_ERROR_MESSAGE, e.response.data.message)
           } else {
             commit(CHANGE_ERROR_MESSAGE, e)
           }
         }
-
       } else {
         commit(CHANGE_ERROR_MESSAGE, '该STO已存在')
 
