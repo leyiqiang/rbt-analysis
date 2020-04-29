@@ -1,12 +1,16 @@
-import _ from 'lodash'
 import vueAxios from '@/api/vueAxios'
-import  { GET_ALL_TABLE_ONE_API } from '@/api/tableOne'
+import { GET_ALL_TABLE_ONE_API } from '@/api/tableOne'
+import { ABC_TABLE, TABLE_ONE } from '@/utils/constants';
+import { formatDate } from '@/utils/utils';
+import _ from 'lodash';
 
-const SET_TABLE_ONES = 'SET_TABLE_ONES'
+const SET_TABLES = 'SET_TABLES'
+
 
 
 const state = {
-  tableOnes: [],
+  tableTypes:[TABLE_ONE, ABC_TABLE],
+  tables: [],
 }
 
 const getters = {
@@ -18,15 +22,31 @@ const getters = {
 }
 
 const mutations = {
-  [SET_TABLE_ONES](state, data) {
-    state.tableOnes = data
+  [SET_TABLES](state, tables) {
+    state.tables = _.map(tables, (table) => {
+      table.date = formatDate(table.date)
+      return table
+    })
   }
 }
 
 const actions = {
-  async getTableOnes({commit}, data) {
+  async changeSelectedType({commit, dispatch}, selectedType) {
+    switch(selectedType) {
+      case TABLE_ONE:
+        dispatch('getTableOnes')
+        break;
+      case ABC_TABLE:
+        // todo
+        break;
+    }
+
+  },
+
+  async getTableOnes({commit}) {
     let res = await vueAxios.get(GET_ALL_TABLE_ONE_API)
-    commit(SET_TABLE_ONES, tables)
+    const tables = res.data.tables
+    commit(SET_TABLES, tables)
   }
 }
 

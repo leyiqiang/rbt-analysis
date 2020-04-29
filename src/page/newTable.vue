@@ -111,8 +111,8 @@
             tableName: this.tableName,
             studentName: this.studentName,
             date: this.date,
-            success: () => {
-              this.$router.push({name:'tableOne', params: {tableID: this.tableID}})
+            success: (routerParam) => {
+              this.$router.push({name:routerParam, params: {tableID: this.tableID}})
 
             }})
         }

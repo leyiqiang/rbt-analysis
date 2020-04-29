@@ -1,9 +1,9 @@
 import vueAxios from '@/api/vueAxios'
 import { CREATE_TABLE_ONE_API } from '@/api/tableOne'
+import { CREATE_ABC_TABLE_API } from '@/api/abcTable'
 import { formatDate } from '@/utils/utils';
 
-const TABLE_ONE = '表格1'
-const ABC_TABLE = 'ABC表格'
+import { TABLE_ONE, ABC_TABLE } from '@/utils/constants';
 
 const CHANGE_ERROR_MESSAGE = 'CHANGE_ERROR_MESSAGE'
 const CHANGE_IS_LOADING = 'CHANGE_IS_LOADING'
@@ -36,30 +36,50 @@ const actions = {
     const { tableType, tableName, studentName, date, success } = data
     commit(CHANGE_ERROR_MESSAGE, "")
     switch(tableType) {
+      // todo: encapsulate function
       case TABLE_ONE:
         try {
-          let res = await vueAxios.post(CREATE_TABLE_ONE_API, {tableName, studentName, date})
-          if(res.data) {
+          let res = await vueAxios.post(CREATE_TABLE_ONE_API, { tableName, studentName, date })
+          if (res.data) {
             const tableData = res.data
             const { _id, tableName, studentName, date } = tableData
             commit(CHANGE_STUDENT_NAME, studentName)
             commit(CHANGE_TABLE_NAME, tableName)
             commit(CHANGE_DATE, formatDate(date))
             commit(CHANGE_TABLE_ID, _id)
-            success()
+            success('tableOne')
           }
           commit(CHANGE_IS_LOADING, false)
         }
         catch (e) {
-          if(e.response){
+          if (e.response) {
             commit(CHANGE_ERROR_MESSAGE, e.response.data.message)
             commit(CHANGE_IS_LOADING, false)
           }
         }
         break;
       case ABC_TABLE:
+        try {
+          let res = await vueAxios.post(CREATE_ABC_TABLE_API, { tableName, studentName, date })
+          if (res.data) {
+            const tableData = res.data
+            const { _id, tableName, studentName, date } = tableData
+            commit(CHANGE_STUDENT_NAME, studentName)
+            commit(CHANGE_TABLE_NAME, tableName)
+            commit(CHANGE_DATE, formatDate(date))
+            commit(CHANGE_TABLE_ID, _id)
+            success('abcTable')
+          }
+          commit(CHANGE_IS_LOADING, false)
+        }
+        catch (e) {
+          if (e.response) {
+            commit(CHANGE_ERROR_MESSAGE, e.response.data.message)
+            commit(CHANGE_IS_LOADING, false)
+          }
+        }
+        commit(CHANGE_IS_LOADING, false)
         break;
-
     }
   },
   changeStudentName({ commit }, data) {
