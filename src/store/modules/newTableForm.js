@@ -1,5 +1,5 @@
 import vueAxios from '@/api/vueAxios'
-import { CREATE_TABLE_ONE_API } from '@/api/table'
+import { CREATE_TABLE_ONE_API } from '@/api/tableOne'
 import { formatDate } from '@/utils/utils';
 
 const TABLE_ONE = '表格1'

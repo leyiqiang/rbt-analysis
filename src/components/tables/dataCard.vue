@@ -4,7 +4,7 @@
     <v-divider></v-divider>
 
     <v-list dense>
-      <v-list-item v-for="(lineData, idx) in itemInfo">
+      <v-list-item v-for="(lineData, idx) in itemInfo" :key="idx">
         {{idx+1}}:
         <span class="group pa-2">
                       <v-icon v-if="lineData.isSuccess" color="green">mdi-plus</v-icon>
@@ -19,19 +19,19 @@
           {{lineData.promptLevel}}
         </v-chip>
 
-        <v-tooltip v-if="lineData.note" bottom>
-          <template v-slot:activator="{ on }">
-            <v-btn color="primary" dark v-on="on">{{getNoteExcerpt(lineData.note)}}</v-btn>
-          </template>
-          <span>{{lineData.note}}</span>
-        </v-tooltip>
+        <!--<v-tooltip v-if="lineData.note" bottom>-->
+          <!--<template v-slot:activator="{ on }">-->
+            <!--<v-btn color="primary" dark v-on="on">{{getNoteExcerpt(lineData.note)}}</v-btn>-->
+          <!--</template>-->
+          <!--<span>{{lineData.note}}</span>-->
+        <!--</v-tooltip>-->
         <v-spacer></v-spacer>
         <v-dialog
           v-model="dialog"
           width="500"
         >
           <template v-slot:activator="{ on }">
-            <v-btn class="ma-2" icon color="success" v-on="on">
+            <v-btn class="ma-2" icon color="success" v-on="on" @click='setCurrentLineData(lineData)'>
               <v-icon left>mdi-pencil</v-icon>
             </v-btn>
           </template>
@@ -45,11 +45,11 @@
             <v-row>
               <v-container>
               <v-col align-self="center">
-                <v-switch v-model="lineData.isSuccess"
+                <v-switch v-model="currentLineData.isSuccess"
                           color="success"
                           :label="getLabel(lineData)"></v-switch>
                 <v-btn-toggle
-                  v-model="lineData.promptLevel"
+                  v-model="currentLineData.promptLevel"
                   color="green darken-2"
                 >
                   <v-btn value="N/A">
@@ -72,12 +72,6 @@
                   </v-btn>
                 </v-btn-toggle>
               </v-col>
-              <v-col align-self="end">
-                <v-text-field
-                  v-model="lineData.note"
-                  label="备注">
-                </v-text-field>
-              </v-col>
               </v-container>
             </v-row>
             <v-divider></v-divider>
@@ -91,13 +85,13 @@
               >
                 确认
               </v-btn>
-              <!--<v-btn-->
-                <!--color="error"-->
-                <!--text-->
-                <!--@click="dialog = false"-->
-              <!--&gt;-->
-                <!--删除-->
-              <!--</v-btn>-->
+              <v-btn
+                color="error"
+                text
+                @click="dialog = false"
+              >
+                取消
+              </v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
@@ -111,12 +105,19 @@
     data() {
       return {
         dialog: false,
+        currentLineData: {
+          isSuccess:false,
+          promptLevel:'',
+        }
       }
     },
     computed: {
     },
     props: ['item', 'itemInfo', 'getLineDataBySTOandIdx'],
     methods: {
+      setCurrentLineData(lineData) {
+        this.currentLineData = {...lineData}
+      },
       getPromptBGColor(lineData) {
         switch(lineData.promptLevel) {
           case 'I':
@@ -144,9 +145,9 @@
           return '备注:' + note
         }
       },
-      confirmClicked(STO, idx, lineData) {
+      confirmClicked(STO, idx) {
         this.dialog = false
-
+        this.$emit('editDataFromSelectedSTO', this.currentLineData)
       },
       deleteClicked(STO, idx) {
 

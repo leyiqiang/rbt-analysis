@@ -6,7 +6,7 @@ import {
   NEW_STO_API,
   ADD_SINGLE_STO_DATA_API,
   EDIT_SINGLE_STO_DATA_API
-} from '@/api/table'
+} from '@/api/tableOne'
 
 const ADD_DATA_TO_SELECTED_STO = 'ADD_DATA_TO_SELECTED_STO'
 const ADD_NEW_STO = 'ADD_NEW_STO'
@@ -16,6 +16,13 @@ const CHANGE_ERROR_MESSAGE = 'CHANGE_ERROR_MESSAGE'
 function findRecordIndexBySTO(sto, records) {
   const findIdx = _.findIndex(records, (record) => {
     return record.sto === sto
+  })
+  return findIdx
+}
+
+function findRecordIndexByID(id, records) {
+  const findIdx = _.findIndex(records, (record) => {
+    return record._id === id
   })
   return findIdx
 }
@@ -88,22 +95,6 @@ export default {
       }
     },
 
-    async addDataToSelectedSTO({commit,state}, data) {
-      const { selectedSTO, currentData } = data
-      const findIdx = findRecordIndexBySTO(selectedSTO, state.records)
-      const stoID = state.records[findIdx]._id
-      try {
-        const res = await vueAxios.post(ADD_SINGLE_STO_DATA_API + '/' + stoID, { stoRecordID: stoID, ...currentData})
-        const stoSingleData = res.data.stoSingleData
-        commit(ADD_DATA_TO_SELECTED_STO, { selectedSTO, stoSingleData, findIdx})
-      } catch(e) {
-        if(e.response){
-          commit(CHANGE_ERROR_MESSAGE, e.response.data.message)
-        } else {
-          commit(CHANGE_ERROR_MESSAGE, e)
-        }
-      }
-    },
 
     async addNewSTO({commit, state, rootState}, sto) {
       const findIdx = findRecordIndexBySTO(sto, state.records)
@@ -125,6 +116,34 @@ export default {
 
       }
     },
+
+    async addDataToSelectedSTO({commit,state}, data) {
+      const { selectedSTO, currentData } = data
+      const findIdx = findRecordIndexBySTO(selectedSTO, state.records)
+      const stoID = state.records[findIdx]._id
+      try {
+        const res = await vueAxios.post(ADD_SINGLE_STO_DATA_API + '/' + stoID, { stoRecordID: stoID, ...currentData})
+        const stoSingleData = res.data.stoSingleData
+        commit(ADD_DATA_TO_SELECTED_STO, { selectedSTO, stoSingleData, findIdx})
+      } catch(e) {
+        if(e.response){
+          commit(CHANGE_ERROR_MESSAGE, e.response.data.message)
+        } else {
+          commit(CHANGE_ERROR_MESSAGE, e)
+        }
+      }
+    },
+
+    async editDataFromSelectedSTO({commit, state, dispatch}, lineData) {
+      const {isSuccess, promptLevel, stoRecordID, _id} = lineData
+      const findIdx = findRecordIndexByID(_id, state.records)
+      const res = await vueAxios.post(EDIT_SINGLE_STO_DATA_API + '/' +_id, {...lineData})
+      if(res.status === 200) {
+      }
+      dispatch('getTableData')
+
+    },
+
 
     setData({commit}, data) {
       commit(SET_DATA, data)

@@ -32,14 +32,14 @@
         </v-btn>
       </v-btn-toggle>
     </v-col>
-    <v-col align-self="end">
-      <v-text-field
-        :value="currentData.note"
-        label="备注"
-        @change="emitChangeNote"
-        required>
-      </v-text-field>
-    </v-col>
+    <!--<v-col align-self="end">-->
+      <!--<v-text-field-->
+        <!--:value="currentData.note"-->
+        <!--label="备注"-->
+        <!--@change="emitChangeNote"-->
+        <!--required>-->
+      <!--</v-text-field>-->
+    <!--</v-col>-->
   </v-row>
   </div>
 </template>

@@ -109,7 +109,9 @@
                 <v-col
                   v-for="(item, index) in props.items"
                   :key="item">
-                  <data-card :item="item" :itemInfo="records[index].stoList"></data-card>
+                  <data-card :item="item"
+                             :itemInfo="records[index].stoList"
+                              @editDataFromSelectedSTO="editDataFromSelectedSTO"></data-card>
 
                 </v-col>
               </v-row>
@@ -176,6 +178,7 @@
       ...mapMutations(['setErrorSnackBar']),
       ...mapActions(['getTableData',
         'addNewSTO',
+        'editDataFromSelectedSTO',
         'addDataToSelectedSTO',]),
       resetCurrentData() {
         this.currentData = {
