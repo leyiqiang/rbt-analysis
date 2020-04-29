@@ -1,5 +1,5 @@
 import vueAxios from '@/api/vueAxios'
-import { GET_ALL_TABLE_ONE_API } from '@/api/tableOne'
+import { GET_ALL_TABLE_ONE_API, GET_TABLE_API } from '@/api/tableOne'
 import { ABC_TABLE, TABLE_ONE } from '@/utils/constants';
 import { formatDate } from '@/utils/utils';
 import _ from 'lodash';
@@ -47,7 +47,7 @@ const actions = {
     let res = await vueAxios.get(GET_ALL_TABLE_ONE_API)
     const tables = res.data.tables
     commit(SET_TABLES, tables)
-  }
+  },
 }
 
 export default {

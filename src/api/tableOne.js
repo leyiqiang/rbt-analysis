@@ -2,7 +2,7 @@ import { vueAxios } from './vueAxios'
 
 const API = '/api'
 
-const TABLE_ONE_API = API + '/tableOne'
+export const TABLE_ONE_API = API + '/tableOne'
 
 export const GET_TABLE_API = TABLE_ONE_API
 
