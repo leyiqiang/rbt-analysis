@@ -13,40 +13,8 @@
             Close
           </v-btn>
         </v-snackbar>
-        <v-row>
-          <v-col cols="12" md="3">
-            <v-text-field
-              :value="tableType"
-              label="表格类型"
-              readonly
-              required
-            ></v-text-field>
-          </v-col>
-          <v-col cols="12" md="3">
-              <v-text-field
-                :value="tableName"
-                label="表格名称"
-                readonly
-                required
-              ></v-text-field>
-          </v-col>
-          <v-col cols="12" md="3">
-              <v-text-field
-                :value="studentName"
-                label="学生姓名"
-                readonly
-                required
-              ></v-text-field>
-          </v-col>
-          <v-col cols="12" md="3">
-            <v-text-field
-              readonly
-              :value="date"
-              label="日期"
-              required
-            ></v-text-field>
-          </v-col>
-        </v-row>
+        <table-header :studentName="studentName" :tableName="tableName" :date="date" :tableType="tableType">
+        </table-header>
       </v-container>
       <v-container>
         <v-divider></v-divider>
@@ -141,6 +109,7 @@
   import DataCard from '@/components/tables/dataCard'
   import STOMenu from '@/components/tables/stoMenu'
   import DataRecord from '@/components/tables/dataRecord'
+  import TableHeader from '@/components/tables/tableHeader'
   import _ from 'lodash'
   const { mapMutations, mapGetters, mapState, mapActions } = createNamespacedHelpers('tableOne');
   export default {
@@ -172,7 +141,8 @@
     components: {
       STOMenu,
       DataRecord,
-      DataCard
+      DataCard,
+      TableHeader,
     },
     methods: {
       ...mapMutations(['setErrorSnackBar']),

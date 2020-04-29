@@ -111,6 +111,7 @@
 
     methods: {
       ...mapActions("abcTable", [
+        'getTableData',
         'editAbcItem',
         'deleteAbcItem',
       ]),
@@ -143,6 +144,9 @@
         // }
         this.close()
       },
+    },
+    created() {
+      this.getTableData()
     },
   }
 </script>

@@ -53,7 +53,7 @@ export default new Router({
       component: () => import('@/components/tables/table')
     },
     {
-      path: '/abcTable',
+      path: '/abcTable/:tableID',
       name: 'abcTable',
       component: () => import('@/components/tables/abcTable')
     }
