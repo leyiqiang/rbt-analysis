@@ -56,6 +56,15 @@ export default new Router({
       path: '/abcTable/:tableID',
       name: 'abcTable',
       component: () => import('@/components/tables/abcTable')
+    }, {
+      path: '/dashboard/abcTable/:tableID',
+      name: 'abcTableDashboard',
+      component: () => import('@/components/dashboard/abcTable')
+    },
+    {
+      path: '/dashboard/tableOne/:tableID',
+      name: 'tableOneDashboard',
+      component: () => import('@/components/dashboard/tableOne')
     }
   ]
 })

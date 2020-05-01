@@ -32,16 +32,13 @@
             mdi-pencil
           </v-icon>
         </template>
-        <template v-slot:item.download="{item}">
-          <download-excel
-            @fetch="getTableData(item)">
-            <v-icon
-              small
-              class="mr-2">
-              mdi-arrow-down-bold
-            </v-icon>
-          </download-excel>
-
+        <template v-slot:item.sheet="{item}">
+          <v-icon
+            small
+            class="mr-2"
+            @click="goToDashBoardPage(item)">
+            mdi-table
+          </v-icon>
         </template>
       </v-data-table>
 
@@ -69,7 +66,7 @@
           { text: '学生姓名', value: 'studentName'},
           { text: '表格名称', value: 'tableName' },
           { text: '修改', value: 'actions', sortable: false},
-          { text: '下载', value: 'download', sortable: false}
+          { text: '查看/下载表格', value: 'sheet', sortable: false}
         ],
         selectedType: undefined,
       }
@@ -78,7 +75,7 @@
       ...mapState(['tables', 'tableTypes']),
     },
     methods: {
-      ...mapActions(['getTableOnes', 'changeSelectedType', 'getTableData']),
+      ...mapActions(['getTableOnes', 'getABCTables', 'changeSelectedType', 'getTableData']),
       goToEditPage(item) {
         const { _id } = item
         switch(this.selectedType) {
@@ -90,15 +87,14 @@
             break;
         }
       },
-      async getTableData(item) {
+      goToDashBoardPage(item) {
         const { _id } = item
         switch(this.selectedType) {
           case(TABLE_ONE):
-            // todo try catch
-            const res = vueAxios.get(TABLE_ONE_API + '/' + _id)
-            console.log(res)
+            this.$router.push({name:'tableOneDashboard', params: {tableID: _id}})
             break;
           case(ABC_TABLE):
+            this.$router.push({name:'abcTableDashboard', params: {tableID: _id}})
             break;
         }
       }
