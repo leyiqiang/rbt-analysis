@@ -63,7 +63,6 @@ const actions = {
           let res = await vueAxios.post(CREATE_ABC_TABLE_API, { tableName, studentName, date })
           if (res.data) {
             const tableData = res.data
-            console.log(res.data)
             const { _id, tableName, studentName, date } = tableData
             commit(CHANGE_STUDENT_NAME, studentName)
             commit(CHANGE_TABLE_NAME, tableName)

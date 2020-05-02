@@ -85,7 +85,6 @@ export default {
       const { tableID } = rootState.route.params
       try {
         let res = await vueAxios.get(GET_TABLE_API + '/' + tableID, rootState.route.params)
-        console.log(res.data)
         commit(SET_DATA, res.data)
       } catch (e) {
         if(e.response){

@@ -7,12 +7,13 @@ import { formatDate } from '@/utils/utils';
 import _ from 'lodash';
 
 const SET_TABLES = 'SET_TABLES'
-
+const SET_SELECTED_TYPE = 'SET_SELECTED_TYPE'
 
 
 const state = {
   tableTypes:[TABLE_ONE, ABC_TABLE],
   tables: [],
+  selectedType: undefined,
 }
 
 const getters = {
@@ -29,6 +30,9 @@ const mutations = {
       table.date = formatDate(table.date)
       return table
     })
+  },
+  [SET_SELECTED_TYPE](state, selectedType) {
+    state.selectedType = selectedType
   }
 }
 
@@ -42,6 +46,7 @@ const actions = {
         dispatch('getABCTables')
         break;
     }
+    commit(SET_SELECTED_TYPE, selectedType)
   },
 
   async getTableOnes({commit}) {

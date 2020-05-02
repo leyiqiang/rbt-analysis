@@ -2,10 +2,10 @@
   <v-container>
     <v-row>
       <v-select
-        v-model="selectedType"
+        :value="selectedType"
         :items="tableTypes"
         label="请选择表格类型"
-        @change="changeSelectedType(selectedType)"
+        @change="changeSelectedType"
       ></v-select>
     </v-row>
     <v-card>
@@ -68,11 +68,10 @@
           { text: '修改', value: 'actions', sortable: false},
           { text: '查看/下载表格', value: 'sheet', sortable: false}
         ],
-        selectedType: undefined,
       }
     },
     computed: {
-      ...mapState(['tables', 'tableTypes']),
+      ...mapState(['tables', 'tableTypes', 'selectedType']),
     },
     methods: {
       ...mapActions(['getTableOnes', 'getABCTables', 'changeSelectedType', 'getTableData']),
@@ -98,13 +97,11 @@
             break;
         }
       }
-
     },
     components: {
       downloadExcel: JsonExcel
     },
     created() {
-      // this.getTableOnes()
     }
 
   }
