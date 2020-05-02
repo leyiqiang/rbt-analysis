@@ -6,42 +6,42 @@
         <user-info></user-info>
         <v-divider></v-divider>
         <v-list-item
-            to="/dashboard"
+            to="/editExistingTable"
             link>
             <v-list-item-icon>
               <v-icon>mdi-view-dashboard</v-icon>
             </v-list-item-icon>
 
             <v-list-item-content>
-              <v-list-item-title>Dashboard</v-list-item-title>
+              <v-list-item-title>查看已有表格</v-list-item-title>
             </v-list-item-content>
         </v-list-item>
         <v-list-item
-          to="/tools"
+          to="/newTable"
           link>
           <v-list-item-icon>
             <v-icon>mdi-desk</v-icon>
           </v-list-item-icon>
 
           <v-list-item-content>
-            <v-list-item-title>工作台</v-list-item-title>
+            <v-list-item-title>新建表格</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-list-group
-        prepend-icon="mdi-tools"
-        value="true"
-        >
-        <template v-slot:activator>
-          <v-list-item-title>工具</v-list-item-title>
-        </template>
+        <!--<v-list-group-->
+        <!--prepend-icon="mdi-tools"-->
+        <!--value="true"-->
+        <!--&gt;-->
+        <!--<template v-slot:activator>-->
+          <!--<v-list-item-title>工具</v-list-item-title>-->
+        <!--</template>-->
 
-        <v-list-item link to="/table">
-          <v-list-item-title>表格1</v-list-item-title>
-        </v-list-item>
-          <v-list-item link to="/abc-table">
-            <v-list-item-title>ABC表格</v-list-item-title>
-          </v-list-item>
-        </v-list-group>
+        <!--<v-list-item link to="/table">-->
+          <!--<v-list-item-title>表格1</v-list-item-title>-->
+        <!--</v-list-item>-->
+          <!--<v-list-item link to="/abc-table">-->
+            <!--<v-list-item-title>ABC表格</v-list-item-title>-->
+          <!--</v-list-item>-->
+        <!--</v-list-group>-->
 
         <v-list-item
             to="/user"
