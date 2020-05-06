@@ -8,9 +8,9 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/user',
-      name: 'user',
-      component: () => import('@/page/user')
+      path: '/userLogin',
+      name: 'userLogin',
+      component: () => import('@/page/userLogin')
     },
     {
       path: '/dashboard',

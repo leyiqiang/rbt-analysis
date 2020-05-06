@@ -41,23 +41,21 @@
               <v-card-text>
                 <v-container>
                   <v-row>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field v-model="editedItem.antecedent" label="Antecedent(前因)"></v-text-field>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field v-model="editedItem.behavior" label="Behavior(行为)"></v-text-field>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field v-model="editedItem.consequence" label="Consequence(后果)"></v-text-field>
-                    </v-col>
+                      <v-textarea outlined v-model="editedItem.antecedent" label="Antecedent(前因)"></v-textarea>
+                  </v-row>
+                  <v-row>
+                      <v-textarea outlined v-model="editedItem.behavior" label="Behavior(行为)"></v-textarea>
+                  </v-row>
+                  <v-row>
+                      <v-textarea outlined v-model="editedItem.consequence" label="Consequence(后果)"></v-textarea>
                   </v-row>
                 </v-container>
               </v-card-text>
 
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
-                <v-btn color="blue darken-1" text @click="save">Save</v-btn>
+                <v-btn color="blue darken-1" text @click="close">取消</v-btn>
+                <v-btn color="blue darken-1" text @click="save">保存</v-btn>
               </v-card-actions>
             </v-card>
           </v-dialog>
@@ -124,7 +122,7 @@
         'errorMessage',
         'abcs',]),
       formTitle () {
-        return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
+        return this.editedIndex === -1 ? '新建数据' : '修改数据'
       },
     },
 

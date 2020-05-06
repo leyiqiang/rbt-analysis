@@ -1,6 +1,6 @@
 <template>
   <div class="hello" style="padding-bottom: 100px;text-align: center;">
-    <v-btn @click="wxAuthingAction">test</v-btn>
+    <v-btn @click="wxAuthingAction">登录</v-btn>
     <div>
     </div>
   </div>

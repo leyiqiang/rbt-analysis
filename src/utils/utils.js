@@ -21,11 +21,6 @@ export const setXAccessToken = (token) => {
   changeAxiosInstanceXAccessTokenHeader(token)
 }
 
-const formatDate = (date) => {
+export const formatDate = (date) => {
   return date.substr(0, 10)
-}
-
-export {
-  setXAccessToken,
-  formatDate
 }
