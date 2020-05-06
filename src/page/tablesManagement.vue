@@ -1,5 +1,17 @@
 <template>
   <v-container>
+    <v-snackbar
+      :value="errorSnackBar"
+    >
+      {{errorMessage}}
+      <v-btn
+        color="red"
+        text
+        @click="setErrorSnackBar(false)"
+      >
+        Close
+      </v-btn>
+    </v-snackbar>
     <v-row>
       <v-select
         :value="selectedType"
@@ -71,9 +83,10 @@
       }
     },
     computed: {
-      ...mapState(['tables', 'tableTypes', 'selectedType']),
+      ...mapState(['tables', 'tableTypes', 'selectedType', 'errorMessage', 'errorSnackBar']),
     },
     methods: {
+      ...mapMutations(['setErrorSnackBar']),
       ...mapActions(['getTableOnes', 'getABCTables', 'changeSelectedType', 'getTableData']),
       goToEditPage(item) {
         const { _id } = item
