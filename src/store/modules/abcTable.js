@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import { NA } from '@/utils/constants'
-import vueAxios from '@/api/vueAxios';
+import { vueAxios } from '@/api/vueAxios';
 import { ABC_TABLE_API, ADD_ABC_ITEM_API, EDIT_ABC_ITEM_API, DELETE_ABC_ITEM_API } from '@/api/abcTable';
 import { formatDate } from '@/utils/utils';
 

@@ -1,4 +1,4 @@
-import vueAxios from '@/api/vueAxios'
+import { vueAxios } from '@/api/vueAxios'
 import { GET_ALL_TABLE_ONE_API, GET_TABLE_API } from '@/api/tableOne'
 import { GET_ALL_ABC_TABLE_API } from '@/api/abcTable'
 

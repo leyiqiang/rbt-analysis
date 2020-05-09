@@ -7,7 +7,8 @@
 
         <v-list-item-content>
             <v-list-item-title>{{userName}}</v-list-item-title>
-            <v-list-item-subtitle>{{role}}</v-list-item-subtitle>
+            <v-list-item-title><a @click="logoutAction">登出</a></v-list-item-title>
+            <!--<v-list-item-subtitle>{{role}}</v-list-item-subtitle>-->
         </v-list-item-content>
     </v-list-item>
     <v-list-item two-line class="miniVariant && 'px-0'" v-else>
@@ -17,7 +18,7 @@
         </v-list-item-avatar>
 
         <v-list-item-content>
-            <v-list-item-title><v-btn to="/userLogin">点击登录</v-btn></v-list-item-title>
+            <v-list-item-title><v-btn @click="loginAction">点击登录</v-btn></v-list-item-title>
         </v-list-item-content>
     </v-list-item>
 </template>
@@ -30,7 +31,20 @@
     }
   },
   computed: {
-    ...mapState('user', ['userName','role'])
+    ...mapState("user", [
+      'userName',]),
+  } ,
+  methods: {
+    logoutAction() {
+      this.logout()
+    },
+    loginAction() {
+      this.login()
+    },
+    ...mapActions('user', ['getUserInfo', 'logout',  'login'])
+  },
+  created() {
+    this.getUserInfo()
   }
 }
 </script>

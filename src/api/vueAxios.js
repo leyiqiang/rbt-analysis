@@ -2,7 +2,7 @@ import axios from 'axios'
 import {getXAccessTokenFromCookie} from '@/utils/utils'
 
 
-const VueAxios = axios.create({
+export const vueAxios = axios.create({
   baseURL: 'http://localhost:3000',
   headers: {
     'x-access-token': getXAccessTokenFromCookie(),
@@ -16,4 +16,4 @@ const VueAxios = axios.create({
 //   VueAxios.defaults.headers.common['Authorization'] = ''
 // }
 
-export default VueAxios
+// export default VueAxios

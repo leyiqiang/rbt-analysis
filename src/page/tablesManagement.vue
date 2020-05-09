@@ -66,7 +66,7 @@
   import JsonExcel from 'vue-json-excel'
 
   const { mapMutations, mapGetters, mapState, mapActions } = createNamespacedHelpers('tablesManagement');
-  import vueAxios from '@/api/vueAxios'
+  import { vueAxios } from '@/api/vueAxios'
 
   export default {
     data() {

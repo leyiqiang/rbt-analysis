@@ -5,7 +5,7 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
-export default new Router({
+const router =  new Router({
   routes: [
     {
       path: '/userLogin',
@@ -68,3 +68,16 @@ export default new Router({
     }
   ]
 })
+
+import { getXAccessTokenFromCookie } from '@/utils/utils'
+
+router.beforeEach((to, from, next) => {
+  if (!getXAccessTokenFromCookie()) {
+    if (to.path !== '/userLogin' && to.path !== '/about') {
+      return next('/userLogin')
+    }
+  }
+  next()
+})
+
+export default router

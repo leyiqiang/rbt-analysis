@@ -1,4 +1,4 @@
-import vueAxios from '@/api/vueAxios'
+import { vueAxios } from '@/api/vueAxios'
 import { CREATE_TABLE_ONE_API } from '@/api/tableOne'
 import { CREATE_ABC_TABLE_API } from '@/api/abcTable'
 import { formatDate } from '@/utils/utils';

@@ -4,8 +4,8 @@ import _ from 'lodash'
 const cookies = new Cookies()
 
 const changeAxiosInstanceXAccessTokenHeader = (token) => {
-  const { axios } =  require('@/api/vueAxios')
-  axios.defaults.headers['x-access-token'] = token
+  const { vueAxios } = require('@/api/vueAxios')
+  vueAxios.defaults.headers['x-access-token'] = token
 }
 
 export const getXAccessTokenFromCookie = () => {
@@ -21,6 +21,13 @@ export const setXAccessToken = (token) => {
   changeAxiosInstanceXAccessTokenHeader(token)
 }
 
+// export const setUserName = (userName) => {
+//   if (_.isNil(userName)) {
+//     cookies.remove('userName')
+//   } else {
+//     cookies.set('x-access-token', token)
+//   }
+// }
 export const formatDate = (date) => {
   return date.substr(0, 10)
 }

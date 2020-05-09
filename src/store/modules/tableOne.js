@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import vueAxios from '@/api/vueAxios'
+import { vueAxios } from '@/api/vueAxios'
 import { formatDate } from '@/utils/utils'
 import {
   GET_TABLE_API,
@@ -50,6 +50,10 @@ export default {
         return record.sto
       })
     },
+
+    getTableHeaders: (state) => {
+      // todo sto sto(prompt lvl) sto sto(prmopt lvl) ...
+    }
   },
   mutations: {
     [ADD_NEW_STO](state, data) {
